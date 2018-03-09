@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1044703059985",
+    "firebase_url": "https://comparte-vehiculo.firebaseio.com",
+    "project_id": "comparte-vehiculo",
+    "storage_bucket": "comparte-vehiculo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044703059985:android:99c8e8bf1e99b9cc",
+        "android_client_info": {
+          "package_name": "co.edu.udea.drai.comparteVehiculo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044703059985-b333o5d0t90psf7jse89kse5hm4vf3rj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.edu.udea.drai.comparteVehiculo",
+            "certificate_hash": "fb3eace1fd7b8ace71d6763c9e98ecd53b7b48dd"
+          }
+        },
+        {
+          "client_id": "1044703059985-5c10tns57kkase42091f206humip77cn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzdjTunrmtcOJkGwGc1LSVHE9jahb_Qjo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044703059985-5c10tns57kkase42091f206humip77cn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

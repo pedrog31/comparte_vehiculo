@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar hideBackButton color="primary">
+    <ion-title>
+      Comparte tu vehiculo
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="createrute()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor='let rute of rutes | async'>
+      <ion-item>
+        <ion-label ion-select (click)="showrute( rute )">{{ rute.hora}}: Desde {{rute.inicio}} hasta {{rute.destino}}</ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

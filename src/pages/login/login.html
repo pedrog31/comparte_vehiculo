@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Comparte tu vehiculo: inicio sesion
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-button block (click)="loginUser()" *ngIf="!userProfile">
+    <ion-icon name="logo-google"></ion-icon>
+    Iniciar sesion con Google
+  </button>
+</ion-content>
