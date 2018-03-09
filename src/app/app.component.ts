@@ -7,7 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = 'LoginPage';
+  rootPage = 'HomePage';
 
   constructor(
     public platform: Platform,

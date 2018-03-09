@@ -12,6 +12,7 @@ export class HomePage {
   rutesRef: AngularFireList<any>;
   rutes: Observable<any[]>;
   navParams: NavParams;
+  mydatabase: AngularFireDatabase;
 
   constructor(
     public navCtrl: NavController,
@@ -19,6 +20,7 @@ export class HomePage {
     public alertCtrl: AlertController,
     public database: AngularFireDatabase
   ) {
+    this.mydatabase = this.database;
     this.navParams = navPrms;
     this.rutesRef = this.database.list('rutas');
     this.rutes = this.rutesRef.snapshotChanges()
@@ -34,7 +36,7 @@ export class HomePage {
       inputs: [
         {
           name: 'nombre',
-          placeholder: this.navParams.get('userProfile').displayName
+          placeholder: 'Nombre'
         },
         {
           name: 'inicio',
@@ -107,11 +109,41 @@ export class HomePage {
         {
           text: 'Me sirve esta ruta',
           handler: data => {
+            this.addPassenger(rute);
           }
         }
       ]
     });
     newruteModal.present( newruteModal );
+  }
+
+  addPassenger(rute) {
+    let newPassengerModal = this.alertCtrl.create({
+      title: 'Nueva ruta',
+      message: "Gracias por contribuir con el medio ambiente, presiona Aceptar para guardar y recuerda estar en el punto de encuentro",
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: data => {
+            let userdata = this.mydatabase.database.ref('/rutas/' + rute.key + '/pasajeros');
+            this.rutesRef.update( rute.key,{
+              capacidad: rute.capacidad--,
+            });
+            userdata.push({
+              nombre: "data.nombre",
+              correo: "data.correo"
+            });
+          }
+        }
+      ]
+    });
+    newPassengerModal.present( newPassengerModal );
   }
 
   updaterute( rute ){
