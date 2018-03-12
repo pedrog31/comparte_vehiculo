@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -12,6 +11,7 @@ export class HomePage {
   rutesRef: AngularFireList<any>;
   rutes: Observable<any[]>;
   navParams: NavParams;
+  navController: NavController;
   mydatabase: AngularFireDatabase;
 
   constructor(
@@ -20,78 +20,18 @@ export class HomePage {
     public alertCtrl: AlertController,
     public database: AngularFireDatabase
   ) {
+    this.navController = navCtrl;
     this.mydatabase = this.database;
     this.navParams = navPrms;
     this.rutesRef = this.database.list('rutas');
     this.rutes = this.rutesRef.snapshotChanges()
-    .map(changes => {
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-    });
+                  .map(changes => {
+                    return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+                  });
   }
 
   createrute(){
-    let newruteModal = this.alertCtrl.create({
-      title: 'Nueva ruta',
-      message: "Gracias por contribuir con el medio ambiente, agrega los datos de la ruta",
-      inputs: [
-        {
-          name: 'nombre',
-          placeholder: 'Nombre'
-        },
-        {
-          name: 'inicio',
-          placeholder: 'Desde:'
-        },
-        {
-          name: 'destino',
-          placeholder: 'Hasta:'
-        },
-        {
-          name: 'tipoVehiculo',
-          placeholder: 'Tipo de vehiculo:'
-        },
-        {
-          name: 'capacidad',
-          placeholder: 'capacidad:'
-        },
-        {
-          name: 'fecha',
-          placeholder: 'Fecha (dia del mes):'
-        },
-        {
-          name: 'hora',
-          placeholder: 'Hora de salida:'
-        },
-        {
-          name: 'descripcion',
-          placeholder: 'Descripcion... punto de encuentro:'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Guardar',
-          handler: data => {
-            this.rutesRef.push({
-              nombre: data.nombre,
-              inicio: data.inicio,
-              destino: data.destino,
-              tipoVehiculo: data.tipoVehiculo,
-              capacidad: data.capacidad,
-              fecha: data.fecha,
-              hora: data.hora,
-              descripcion: data.descripcion,
-            });
-          }
-        }
-      ]
-    });
-    newruteModal.present( newruteModal );
+    this.navController.push('FormRutePage');
   }
 
   showrute( rute ) {
@@ -132,12 +72,13 @@ export class HomePage {
           text: 'Aceptar',
           handler: data => {
             let userdata = this.mydatabase.database.ref('/rutas/' + rute.key + '/pasajeros');
+            rute.capacidad--,
             this.rutesRef.update( rute.key,{
               capacidad: rute.capacidad--,
             });
             userdata.push({
-              nombre: "data.nombre",
-              correo: "data.correo"
+              nombre: window.localStorage.getItem('name'),
+              correo: window.localStorage.getItem('email')
             });
           }
         }
