@@ -44,11 +44,14 @@ export class LoginPage {
               .then( response => {
                 this.navController.setRoot('HomePage', {})
                 this.navController.push('HomePage');
-                window.localStorage.setItem('uid', response.uid));
+                window.localStorage.setItem('uid', response.uid);
         })
       .catch(err =>
         console.error(err));
-    })
+        alert("2");
+    }).catch(err =>
+      console.error(err));
+      alert("1");
   }
 
   ionViewDidLoad() {
