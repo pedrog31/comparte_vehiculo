@@ -31,55 +31,31 @@
       </ion-item>
 
       <ion-item>
-        <!--
-        <ion-avatar item-left>
-          <img src="{{character.image}}">
-        </ion-avatar>-->
         <h2>Destino</h2>
         <p>{{ rute.destino}}</p>
       </ion-item>
 
       <ion-item>
-        <!--
-        <ion-avatar item-left>
-          <img src="{{character.image}}">
-        </ion-avatar>-->
         <h2>Tipo de vehiculo</h2>
         <p>{{ rute.tipoVehiculo}}</p>
       </ion-item>
 
       <ion-item>
-        <!--
-        <ion-avatar item-left>
-          <img src="{{character.image}}">
-        </ion-avatar>-->
         <h2>Capacidad</h2>
         <p>{{ rute.capacidad}}</p>
       </ion-item>
 
       <ion-item>
-        <!--
-        <ion-avatar item-left>
-          <img src="{{character.image}}">
-        </ion-avatar>-->
         <h2>Fecha</h2>
         <p>{{ rute.fecha}}</p>
       </ion-item>
 
       <ion-item>
-        <!--
-        <ion-avatar item-left>
-          <img src="{{character.image}}">
-        </ion-avatar>-->
         <h2>Hora</h2>
         <p>{{ rute.hora}}</p>
       </ion-item>
 
       <ion-item *ngIf="rute.descripcion.length > 0">
-        <!--
-        <ion-avatar item-left>
-          <img src="{{character.image}}">
-        </ion-avatar>-->
         <h2>Descripcion</h2>
         <p>{{ rute.descripcion}}</p>
       </ion-item>
@@ -90,7 +66,7 @@
           <ion-buttons end>
             <button ion-button (click)="closeModal()">Cancelar</button>
             <button ion-button *ngIf="owner" color="blue" (click)="showPassengers()">Pasajeros inscritos</button>
-            <button ion-button *ngIf="!owner" color="blue" (click)="addNewPassenger()">Tomar esta ruta</button>
+            <button ion-button *ngIf="!owner" color="blue" (click)="addNewPassengerInfo()">Tomar esta ruta</button>
           </ion-buttons>
         </ion-toolbar>
       </ion-footer>
@@ -115,6 +91,13 @@
   </div>
 
   <div *ngIf="!primary && !owner">
-
+    <h1> Gracias por contribuir con el medio ambiente, presiona Aceptar para guardar y recuerda estar en el punto de encuentro </h1>
+    <ion-footer>
+      <ion-toolbar>
+        <ion-buttons end>
+          <button ion-button (click)="addNewPassenger()" color="blue">Aceptar</button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-footer>
   </div>
 </ion-content>

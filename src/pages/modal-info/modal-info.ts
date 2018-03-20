@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
-
+import { Observable } from 'rxjs/Observable';
 /**
  * Generated class for the ModalInfoPage page.
  *
@@ -47,34 +47,20 @@ export class ModalInfoPage {
                   });
   }
 
-  addNewPassenger() {
+  addNewPassengerInfo() {
     this.primary = false;
-    let newPassengerModal = this.alertCtrl.create({
-      title: 'Nueva ruta',
-      message: "Gracias por contribuir con el medio ambiente, presiona Aceptar para guardar y recuerda estar en el punto de encuentro",
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Aceptar',
-          handler: data => {
-            let aux: number = this.rute.capacidad - 1;
-            this.mydatabase.database.ref('/rutas/' + this.rute.key + '/pasajeros').push({
-              nombre: window.localStorage.getItem('name'),
-              correo: window.localStorage.getItem('email')
-            });
-            this.mydatabase.database.ref('/rutas/' + this.rute.key).update({
-              capacidad: aux,
-            });
-          }
-        }
-      ]
+  }
+
+  addNewPassenger() {
+    let aux: number = this.rute.capacidad - 1;
+    this.mydatabase.database.ref('/rutas/' + this.rute.key + '/pasajeros').push({
+      nombre: window.localStorage.getItem('name'),
+      correo: window.localStorage.getItem('email')
     });
-    newPassengerModal.present( newPassengerModal );
+    this.mydatabase.database.ref('/rutas/' + this.rute.key).update({
+      capacidad: aux,
+    });
+    this.navController.pop();
   }
 
 }
