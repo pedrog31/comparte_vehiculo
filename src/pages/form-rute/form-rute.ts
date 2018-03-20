@@ -28,10 +28,9 @@ export class FormRutePage {
         this.rutesRef = this.database.list('rutas');
 
         this.authForm = formBuilder.group({
-            nombre: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(30)])],
-            inicioRuta: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(30)])],
-            finalRuta: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(30)])],
-            tipoVehiculo: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(30)])],
+            inicioRuta: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30)])],
+            finalRuta: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30)])],
+            tipoVehiculo: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30)])],
             capacidad: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(1)])],
             fecha: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(2)])],
             hora: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(10)])],
@@ -42,7 +41,9 @@ export class FormRutePage {
     onSubmit(data: any): void {
         if(this.authForm.valid) {
           this.rutesRef.push({
-            nombre: data.nombre,
+            uid: window.localStorage.getItem('uid'),
+            nombre: window.localStorage.getItem('name'),
+            email: window.localStorage.getItem('email'),
             inicio: data.inicioRuta,
             destino: data.finalRuta,
             tipoVehiculo: data.tipoVehiculo,
@@ -66,5 +67,9 @@ export class FormRutePage {
             newruteModal.present( newruteModal );
           })
         }
+      }
+
+      closeModal () {
+        this.navController.pop();
       }
   }

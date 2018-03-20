@@ -83,8 +83,7 @@
     <allow-navigation href="http://172.21.34.35:8100" />
     <allow-navigation href="http://172.21.38.202:8100" />
     <plugin name="cordova-plugin-googleplus" spec="^5.2.1">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.1044703059985-m5brddie0i17s5vd5fei8tjubdv5oltq" />
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="1044703059985-m5brddie0i17s5vd5fei8tjubdv5oltq.apps.googleusercontent.com" />
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="1044703059985-5c10tns57kkase42091f206humip77cn.apps.googleusercontent.com" />
     </plugin>
-    <engine name="android" spec="~7.0.0" />
+    <engine name="android" spec="7.0.0" />
 </widget>

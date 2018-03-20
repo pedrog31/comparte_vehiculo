@@ -32,7 +32,7 @@ export class LoginPage {
 
   loginUser(): void {
     this.googlePlus.login({
-      'webClientId': '1044703059985-m5brddie0i17s5vd5fei8tjubdv5oltq.apps.googleusercontent.com',
+      'webClientId': '1044703059985-5c10tns57kkase42091f206humip77cn.apps.googleusercontent.com',
       'offline': false
     }).then( res => {
           window.localStorage.setItem('name', res.displayName);
@@ -42,16 +42,13 @@ export class LoginPage {
 
           firebase.auth().signInWithCredential(googleCredential)
               .then( response => {
-                this.navController.setRoot('HomePage', {})
                 this.navController.push('HomePage');
                 window.localStorage.setItem('uid', response.uid);
         })
       .catch(err =>
         console.error(err));
-        alert("2");
     }).catch(err =>
       console.error(err));
-      alert("1");
   }
 
   ionViewDidLoad() {

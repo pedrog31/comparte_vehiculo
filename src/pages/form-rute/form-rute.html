@@ -8,18 +8,17 @@
 
   <ion-navbar>
     <ion-title>Nueva ruta</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-    Gracias por contribuir con el medio ambiente, agrega los datos de la ruta
     <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm.value)">
-      <ion-item>
-          <ion-label floating>Nombre</ion-label>
-          <ion-input formControlName="nombre" type="text"></ion-input>
-      </ion-item>
-
         <ion-item>
             <ion-label floating>Desde</ion-label>
             <ion-input formControlName="inicioRuta" type="text"></ion-input>
