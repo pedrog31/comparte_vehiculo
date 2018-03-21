@@ -24,8 +24,10 @@
     "@ionic-native/status-bar": "4.3.2",
     "@ionic/storage": "2.0.1",
     "adb": "0.2.0",
+    "angular4-social-login": "^1.1.1",
     "angularfire2": "^5.0.0-rc.3",
     "cordova-android": "7.0.0",
+    "cordova-browser": "5.0.3",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-googleplus": "^5.2.1",
     "cordova-plugin-ionic-webview": "^1.1.16",
@@ -55,7 +57,8 @@
       }
     },
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ]
   }
 }

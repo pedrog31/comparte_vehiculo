@@ -8,18 +8,36 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 
 import firebase from 'firebase';
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyCZFCsFiZ3IHDWNsYd1XOLNrn6RR-0tAAU",
-    authDomain: "comparte-vehiculo.firebaseapp.com",
-    databaseURL: "https://comparte-vehiculo.firebaseio.com",
-    projectId: "comparte-vehiculo",
-    storageBucket: "comparte-vehiculo.appspot.com",
-    messagingSenderId: "1044703059985"
+  apiKey: "AIzaSyBEgtnsv4982ycl2PHJhULhMFmVLakgPuc",
+    authDomain: "comparte-vehiculo1.firebaseapp.com",
+    databaseURL: "https://comparte-vehiculo1.firebaseio.com",
+    projectId: "comparte-vehiculo1",
+    storageBucket: "",
+    messagingSenderId: "400999211901"
 };
 firebase.initializeApp(firebaseConfig);
+
+
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("400999211901-p8ifa7tc79i7mcok8hdpd1ejcb5s1ek0.apps.googleusercontent.com")
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("Facebook-App-Id")
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -29,6 +47,7 @@ firebase.initializeApp(firebaseConfig);
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig,'demo104'),
+    SocialLoginModule.initialize(config),
     AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],

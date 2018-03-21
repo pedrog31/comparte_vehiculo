@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="co.edu.udea.drai.comparteVehiculo" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="co.edu.udea.drai.comparte" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>MyApp</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -83,7 +83,8 @@
     <allow-navigation href="http://172.21.34.35:8100" />
     <allow-navigation href="http://172.21.38.202:8100" />
     <plugin name="cordova-plugin-googleplus" spec="^5.2.1">
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="1044703059985-5c10tns57kkase42091f206humip77cn.apps.googleusercontent.com" />
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="400999211901-p8ifa7tc79i7mcok8hdpd1ejcb5s1ek0.apps.googleusercontent.com" />
     </plugin>
     <engine name="android" spec="7.0.0" />
+    <engine name="browser" spec="5.0.3" />
 </widget>
