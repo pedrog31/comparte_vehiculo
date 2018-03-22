@@ -30,8 +30,11 @@
         </ion-item>
 
         <ion-item>
-            <ion-label floating>Tipo de vehiculo</ion-label>
-            <ion-input formControlName="tipoVehiculo" type="text"></ion-input>
+          <ion-label floating>Tipo vehiculo</ion-label>
+          <ion-select formControlName="tipoVehiculo" interface="popover">
+            <ion-option value="Carro">Carro</ion-option>
+            <ion-option value="Moto">Moto</ion-option>
+          </ion-select>
         </ion-item>
 
         <ion-item>
@@ -43,7 +46,25 @@
             <ion-label floating>Fecha</ion-label>
             <ion-input formControlName="fecha" type="number"></ion-input>
         </ion-item>
-
+<!--<ion-label floating>Fecha</ion-label>
+<ion-select formControlName="fecha" interface="popover">
+  <ion-option value="Enero">Enero</ion-option>
+  <ion-option value="Febrero">Febrero</ion-option>
+  <ion-option value="Marzo">Marzo</ion-option>
+  <ion-option value="Abril">Abril</ion-option>
+  <ion-option value="Mayo">Mayo</ion-option>
+  <ion-option value="Junio">Junio</ion-option>
+  <ion-option value="Julio">Julio</ion-option>
+  <ion-option value="Agosto">Agosto</ion-option>
+  <ion-option value="Septiembre">Septiembre</ion-option>
+  <ion-option value="Octubre">Octubre</ion-option>
+  <ion-option value="Noviembre">Noviembre</ion-option>
+  <ion-option value="Diciembre">Diciembre</ion-option>
+</ion-select>
+<ion-select formControlName="fecha" interface="popover">
+  <ion-option value="Carro">Carro</ion-option>
+  <ion-option value="Moto">Moto</ion-option>
+</ion-select>-->
         <ion-item>
             <ion-label floating>Hora</ion-label>
             <ion-input formControlName="hora" type="text"></ion-input>

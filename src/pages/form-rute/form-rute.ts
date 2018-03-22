@@ -30,7 +30,7 @@ export class FormRutePage {
         this.authForm = formBuilder.group({
             inicioRuta: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30)])],
             finalRuta: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30)])],
-            tipoVehiculo: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30)])],
+            tipoVehiculo: ['', Validators.compose([Validators.required])],
             capacidad: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(1)])],
             fecha: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(2)])],
             hora: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(10)])],

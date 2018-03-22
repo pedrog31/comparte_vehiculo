@@ -82,9 +82,9 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.11" />
     <allow-navigation href="http://172.21.34.35:8100" />
     <allow-navigation href="http://172.21.38.202:8100" />
-    <plugin name="cordova-plugin-googleplus" spec="^5.2.1">
+    <plugin name="cordova-plugin-googleplus" spec="https://github.com/EddyVerbruggen/cordova-plugin-googleplus">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.400999211901-p8ifa7tc79i7mcok8hdpd1ejcb5s1ek0" />
         <variable name="WEB_APPLICATION_CLIENT_ID" value="400999211901-p8ifa7tc79i7mcok8hdpd1ejcb5s1ek0.apps.googleusercontent.com" />
     </plugin>
-    <engine name="android" spec="7.0.0" />
-    <engine name="browser" spec="5.0.3" />
+    <engine name="browser" spec="~5.0.3" />
 </widget>
