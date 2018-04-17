@@ -45,14 +45,15 @@ export class LoginPage {
     if(this.platform.is('core') || this.platform.is('mobileweb')) {
       this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
         .then(res => {
-          window.localStorage.setItem('name', res.displayName);
-          window.localStorage.setItem('email', res.email);
-          window.localStorage.setItem('uid', res.uid);
+          window.localStorage.setItem('name', res.user.displayName);
+          window.localStorage.setItem('email', res.user.email);
+          window.localStorage.setItem('uid', res.user.uid);
+          window.localStorage.setItem('foto', res.user.uid);
           this.navController.push('HomePage');
         });
     } else {
       this.googlePlus.login({
-        'webClientId': '400999211901-p8ifa7tc79i7mcok8hdpd1ejcb5s1ek0.apps.googleusercontent.com',
+        'webClientId': '118760255717-b6f012ri2n40nnsffur0lggogglfan6t.apps.googleusercontent.com',
         'offline': false
       }).then( res => {
           window.localStorage.setItem('name', res.displayName);
@@ -64,13 +65,11 @@ export class LoginPage {
               .then( response => {
                 this.navController.push('HomePage');
                 window.localStorage.setItem('uid', response.uid);})
+                window.localStorage.setItem('foto', res.user.uid);
           })
-        .catch(err =>
-          console.error(err));
+        .catch(err => {
+          console.error(err);
+        })
     }
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
   }
 }

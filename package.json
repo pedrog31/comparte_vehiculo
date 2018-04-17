@@ -24,8 +24,10 @@
     "@ionic-native/status-bar": "4.3.2",
     "@ionic/storage": "2.0.1",
     "adb": "0.2.0",
+    "angular2-moment": "^1.8.0",
     "angular4-social-login": "^1.1.1",
     "angularfire2": "^5.0.0-rc.6",
+    "cordova-android": "7.0.0",
     "cordova-browser": "5.0.3",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-googleplus": "git+https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git",
@@ -35,6 +37,7 @@
     "ionic-angular": "3.8.0",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
+    "moment": "^2.21.0",
     "promise-polyfill": "^7.1.0",
     "rxjs": "5.4.3",
     "sw-toolbox": "3.6.0",
@@ -57,6 +60,7 @@
       }
     },
     "platforms": [
+      "android",
       "browser"
     ]
   }

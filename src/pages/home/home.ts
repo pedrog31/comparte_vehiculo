@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import moment, * as moments from 'moment'
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -31,6 +32,12 @@ export class HomePage {
                   .map(changes => {
                     return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
                   });
+  }
+
+  ionViewDidLoad() {
+    if (window.localStorage.getItem('uid') == null) {
+      this.navController.push('LoginPage');
+    }
   }
 
   createrute(){

@@ -13,12 +13,12 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import firebase from 'firebase';
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyBEgtnsv4982ycl2PHJhULhMFmVLakgPuc",
-    authDomain: "comparte-vehiculo1.firebaseapp.com",
-    databaseURL: "https://comparte-vehiculo1.firebaseio.com",
-    projectId: "comparte-vehiculo1",
+    apiKey: "AIzaSyCnaI6yDjH0lbS5ZXqKDz4d4D1bIf0GRdk",
+    authDomain: "udea-comparte-vehiculo.firebaseapp.com",
+    databaseURL: "https://udea-comparte-vehiculo.firebaseio.com",
+    projectId: "udea-comparte-vehiculo",
     storageBucket: "",
-    messagingSenderId: "400999211901"
+    messagingSenderId: "118760255717"
 };
 firebase.initializeApp(firebaseConfig);
 

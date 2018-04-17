@@ -50,11 +50,6 @@
         <p>{{ rute.fecha}}</p>
       </ion-item>
 
-      <ion-item>
-        <h2>Hora</h2>
-        <p>{{ rute.hora}}</p>
-      </ion-item>
-
       <ion-item *ngIf="rute.descripcion.length > 0">
         <h2>Descripcion</h2>
         <p>{{ rute.descripcion}}</p>
@@ -65,8 +60,8 @@
         <ion-toolbar>
           <ion-buttons end>
             <button ion-button (click)="closeModal()">Cancelar</button>
-            <button ion-button *ngIf="owner" color="blue" (click)="showPassengers()">Pasajeros inscritos</button>
-            <button ion-button *ngIf="!owner" color="blue" (click)="addNewPassengerInfo()">Tomar esta ruta</button>
+            <button ion-button *ngIf="owner && rute.numeroPasajeros > 0" color="blue" (click)="showPassengers()">Pasajeros inscritos</button>
+            <button ion-button *ngIf="!owner && !subscribed && rute.capacidad != 0" color="blue" (click)="addNewPassengerInfo()">Tomar esta ruta</button>
           </ion-buttons>
         </ion-toolbar>
       </ion-footer>
@@ -91,11 +86,30 @@
   </div>
 
   <div *ngIf="!primary && !owner">
-    <h1> Gracias por contribuir con el medio ambiente, presiona Aceptar para guardar y recuerda estar en el punto de encuentro </h1>
+    <div text-center>
+      <img src="assets/img/mundo.jpeg" [width]="100"/>
+    </div>
+    <h2> Gracias por contribuir con el medio ambiente, recuerda estar en el punto de encuentro </h2>
+    <br>
+    <ion-list>
+        <ion-item>
+          <h2>Contacto vehiculo compartido: {{ rute.nombre}}</h2>
+          <p>{{ rute.email}}</p>
+        </ion-item>
+        <ion-item>
+        <h2>Fecha</h2>
+        <p>{{ rute.fecha}}</p>
+        </ion-item>
+        <ion-item>
+        <h2>Punto de partida</h2>
+        <p>{{ rute.inicio}}</p>
+        </ion-item>
+    </ion-list>
     <ion-footer>
       <ion-toolbar>
         <ion-buttons end>
-          <button ion-button (click)="addNewPassenger()" color="blue">Aceptar</button>
+        <button ion-button (click)="closeModal()" color="red">Cancelar</button>
+          <button ion-button (click)="addNewPassenger()" color="blue">Confirmar cupo</button>
         </ion-buttons>
       </ion-toolbar>
     </ion-footer>

@@ -1,34 +1,35 @@
 {
   "project_info": {
-    "project_number": "400999211901",
-    "firebase_url": "https://comparte-vehiculo1.firebaseio.com",
-    "project_id": "comparte-vehiculo1"
+    "project_number": "118760255717",
+    "firebase_url": "https://udea-comparte-vehiculo.firebaseio.com",
+    "project_id": "udea-comparte-vehiculo",
+    "storage_bucket": "udea-comparte-vehiculo.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:400999211901:android:cf1779fcfa483c5c",
+        "mobilesdk_app_id": "1:118760255717:android:cf1779fcfa483c5c",
         "android_client_info": {
           "package_name": "co.edu.udea.drai.comparte"
         }
       },
       "oauth_client": [
         {
-          "client_id": "400999211901-jjlg9ktucmu8pjmeec7e26219r5bsvnv.apps.googleusercontent.com",
+          "client_id": "118760255717-8mj8hojnu955021g4qgia3nle070o76b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "co.edu.udea.drai.comparte",
-            "certificate_hash": "e3a10639d3ef2c5c21a5052b297a8f04273abcdf"
+            "certificate_hash": "fb3eace1fd7b8ace71d6763c9e98ecd53b7b48dd"
           }
         },
         {
-          "client_id": "400999211901-p8ifa7tc79i7mcok8hdpd1ejcb5s1ek0.apps.googleusercontent.com",
+          "client_id": "118760255717-b6f012ri2n40nnsffur0lggogglfan6t.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCxzWU93_wWczjDsBVuHZwfWjRcIFZ-jHw"
+          "current_key": "AIzaSyB6buMv4qr78wkT3gGXDrORJmm-giHcV9c"
         }
       ],
       "services": {
@@ -39,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "400999211901-p8ifa7tc79i7mcok8hdpd1ejcb5s1ek0.apps.googleusercontent.com",
+              "client_id": "118760255717-b6f012ri2n40nnsffur0lggogglfan6t.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

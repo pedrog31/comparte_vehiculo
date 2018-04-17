@@ -14,3 +14,26 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+ion-icon {
+    &[class*="comparte_vehiculo-"] {
+        // Instead of using the font-based icons
+        // We're applying SVG masks
+        mask-size: contain;
+        mask-position: 50% 50%;
+        mask-repeat: no-repeat;
+        background: currentColor;
+        width: 1em;
+        height: 1em;
+    }
+    // custom icons
+    &[class*="comparte_vehiculo-location_init"] {
+        mask-image: url(../assets/icon/location.svg);
+        font-size: 16px;
+        color : green;
+    }
+    &[class*="comparte_vehiculo-location_finish"] {
+        mask-image: url(../assets/icon/location.svg);
+        font-size: 16px;
+        color : red;
+    }
+}

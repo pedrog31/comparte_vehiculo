@@ -19,6 +19,7 @@ export class ModalInfoPage {
   rute:any;
   owner: boolean;
   primary: boolean;
+  subscribed: boolean;
   mydatabase: AngularFireDatabase;
   pasajeros: Observable<any[]>;
   pasajerosRef: AngularFireList<any>;
@@ -27,6 +28,10 @@ export class ModalInfoPage {
     this.navController = navCtrl;
     this.rute = navParams.get('rute');
     this.owner = this.rute.uid == window.localStorage.getItem('uid');
+    if (this.rute.numeroPasajeros > 0)
+      this.subscribed = JSON.stringify(this.rute.pasajeros).indexOf(window.localStorage.getItem('uid')) > -1;
+    else
+      this.subscribed = false;
     this.primary = true;
     this.mydatabase = this.database;
   }
@@ -47,20 +52,30 @@ export class ModalInfoPage {
                   });
   }
 
+  ionViewDidLoad() {
+    if (window.localStorage.getItem('uid') == null) {
+      this.navController.push('LoginPage');
+    }
+  }
+
   addNewPassengerInfo() {
     this.primary = false;
   }
 
   addNewPassenger() {
     let aux: number = this.rute.capacidad - 1;
-    this.mydatabase.database.ref('/rutas/' + this.rute.key + '/pasajeros').push({
+    let aux2: number = this.rute.numeroPasajeros + 1;
+    this.mydatabase.database.ref('/rutas/' + this.rute.key + '/pasajeros/' + window.localStorage.getItem('uid')).update({
       nombre: window.localStorage.getItem('name'),
       correo: window.localStorage.getItem('email')
-    });
-    this.mydatabase.database.ref('/rutas/' + this.rute.key).update({
-      capacidad: aux,
-    });
-    this.navController.pop();
+    }).then((item) => {
+      this.subscribed = true;
+      this.mydatabase.database.ref('/rutas/' + this.rute.key).update({
+        capacidad: aux,
+        numeroPasajeros: aux2
+      });
+      this.navController.pop();
+    })
   }
 
 }
