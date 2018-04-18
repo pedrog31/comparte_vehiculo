@@ -52,14 +52,15 @@ export class ModalInfoPage {
                   });
   }
 
-  ionViewDidLoad() {
-    if (window.localStorage.getItem('uid') == null) {
-      this.navController.push('LoginPage');
-    }
-  }
-
   addNewPassengerInfo() {
     this.primary = false;
+  }
+
+  deleteRute() {
+    this.mydatabase.database.ref('/rutas/' + this.rute.key).remove().then((item) => {
+      alert("Ruta eliminada correctamente");
+      this.navController.pop();
+    })
   }
 
   addNewPassenger() {
@@ -67,7 +68,8 @@ export class ModalInfoPage {
     let aux2: number = this.rute.numeroPasajeros + 1;
     this.mydatabase.database.ref('/rutas/' + this.rute.key + '/pasajeros/' + window.localStorage.getItem('uid')).update({
       nombre: window.localStorage.getItem('name'),
-      correo: window.localStorage.getItem('email')
+      correo: window.localStorage.getItem('email'),
+      foto: window.localStorage.getItem('foto')
     }).then((item) => {
       this.subscribed = true;
       this.mydatabase.database.ref('/rutas/' + this.rute.key).update({

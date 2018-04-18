@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import moment, * as moments from 'moment'
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -23,25 +22,27 @@ export class HomePage {
     public database: AngularFireDatabase,
     public mdController: ModalController
   ) {
+    this.rutesRef = this.database.list('rutas');
     this.modalController = mdController;
     this.navController = navCtrl;
     this.mydatabase = this.database;
     this.navParams = navPrms;
-    this.rutesRef = this.database.list('rutas');
-    this.rutes = this.rutesRef.snapshotChanges()
-                  .map(changes => {
-                    return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-                  });
   }
 
   ionViewDidLoad() {
     if (window.localStorage.getItem('uid') == null) {
       this.navController.push('LoginPage');
     }
+    this.rutes = this.rutesRef.snapshotChanges()
+                  .map(changes => {
+                    return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+                  });
   }
 
   createrute(){
     this.modalController.create('FormRutePage').present();
+    //https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCoj-stUyp8r9gPi6MZN7YyHGnT-eCpx3Q&input=sabaneta&components=country:co
+    //https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=bogota&destinations=medellin&key=4bda60ef9d7c7ace61e3c129f00f6ee4f44ad6ef
   }
 
   showrute( rute ) {

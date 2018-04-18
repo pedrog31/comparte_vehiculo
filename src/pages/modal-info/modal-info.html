@@ -50,6 +50,11 @@
         <p>{{ rute.fecha}}</p>
       </ion-item>
 
+      <ion-item>
+        <h2>Hora</h2>
+        <p>{{ rute.hora}}</p>
+      </ion-item>
+
       <ion-item *ngIf="rute.descripcion.length > 0">
         <h2>Descripcion</h2>
         <p>{{ rute.descripcion}}</p>
@@ -60,6 +65,7 @@
         <ion-toolbar>
           <ion-buttons end>
             <button ion-button (click)="closeModal()">Cancelar</button>
+            <button ion-button *ngIf="owner && rute.numeroPasajeros === 0" color="danger" (click)="deleteRute()">Eliminar ruta</button>
             <button ion-button *ngIf="owner && rute.numeroPasajeros > 0" color="blue" (click)="showPassengers()">Pasajeros inscritos</button>
             <button ion-button *ngIf="!owner && !subscribed && rute.capacidad != 0" color="blue" (click)="addNewPassengerInfo()">Tomar esta ruta</button>
           </ion-buttons>
@@ -68,14 +74,17 @@
     </div>
 
   <div *ngIf="!primary && owner">
-    <ion-list>
-      <ion-item-sliding *ngFor='let pasajero of pasajeros | async'>
-        <ion-item>
-          <h2>{{ pasajero.nombre}}</h2>
+    <ion-grid>
+       <ion-row *ngFor='let pasajero of pasajeros | async'>
+        <ion-col class="profile">
+          <img class="profile" src={{pasajero.foto}} />
+        </ion-col>
+        <ion-col>
+          <h3>{{ pasajero.nombre}}</h3>
           <p>{{ pasajero.correo}}</p>
-        </ion-item>
-      </ion-item-sliding>
-    </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <ion-footer>
       <ion-toolbar>
         <ion-buttons end>
@@ -97,18 +106,18 @@
           <p>{{ rute.email}}</p>
         </ion-item>
         <ion-item>
-        <h2>Fecha</h2>
-        <p>{{ rute.fecha}}</p>
+          <h2>Fecha</h2>
+          <p>{{ rute.fecha}} a las {{ rute.hora}}</p>
         </ion-item>
         <ion-item>
-        <h2>Punto de partida</h2>
-        <p>{{ rute.inicio}}</p>
+          <h2>Punto de partida</h2>
+          <p>{{ rute.inicio}}</p>
         </ion-item>
     </ion-list>
     <ion-footer>
       <ion-toolbar>
         <ion-buttons end>
-        <button ion-button (click)="closeModal()" color="red">Cancelar</button>
+        <button ion-button (click)="closeModal()" color="danger">Cancelar</button>
           <button ion-button (click)="addNewPassenger()" color="blue">Confirmar cupo</button>
         </ion-buttons>
       </ion-toolbar>

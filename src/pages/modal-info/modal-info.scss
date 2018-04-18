@@ -1,3 +1,14 @@
 page-modal-info {
-  
+  img.profile {
+    border-radius: 50%;
+    max-width:50px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  ion-col.profile {
+    max-width:90px;
+    margin-left: 10px;
+    margin-right: 10px
+  }
 }

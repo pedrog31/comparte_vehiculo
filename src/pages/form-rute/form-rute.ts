@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import moment from 'moment';
 
@@ -31,10 +31,10 @@ export class FormRutePage {
         this.rutesRef = this.database.list('rutas');
 
         this.authForm = formBuilder.group({
-            inicioRuta: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30)])],
-            finalRuta: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30)])],
-            tipoVehiculo: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(10)])],
-            capacidad: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(1)])],
+            inicioRuta: ['', Validators.compose([Validators.required])],
+            finalRuta: ['', Validators.compose([Validators.required])],
+            tipoVehiculo: ['', Validators.compose([Validators.required])],
+            capacidad: ['', Validators.compose([Validators.required])],
             fecha: ['', Validators.compose([Validators.required])],
             descripcion: ['']
         });
@@ -59,7 +59,8 @@ export class FormRutePage {
             fecha: moment(data.fecha).locale('es').format('ddd DD[ de ]MMM'),
             hora: moment(data.fecha).locale('es').format('hh:mm a'),
             descripcion: data.descripcion,
-            numeroPasajeros:0
+            numeroPasajeros:0,
+            foto: window.localStorage.getItem('foto')
           }).then((item) => {
             let newruteModal = this.alertCtrl.create({
               title: 'Nueva ruta',

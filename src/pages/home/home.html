@@ -15,36 +15,41 @@
 
 <ion-content>
    <img class="banner" src="assets/img/slider01.jpg" [width]="100"/>
-  <ion-list>
-    <ion-card *ngFor='let rute of rutes | async' ion-select (click)="showrute( rute )">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <div class="profile">
-              <h2><b> {{rute.nombre}} </b></h2>
-              <img class="profile" src="https://lh6.googleusercontent.com/-OZgSH76uyBg/AAAAAAAAAAI/AAAAAAAAB9Q/9Y4sZqiUBoc/photo.jpg" />
-            </div>
-          </ion-col>
-          <ion-col class = "col_2">
-            <div> <h2> {{rute.fecha}} - <b>{{rute.hora}}</b> </h2></div>
-            <div>
-              <ion-icon name="comparte_vehiculo-location_init"></ion-icon>{{rute.inicio}}
-              <br>
-              <br>
-              <ion-icon name="comparte_vehiculo-location_finish"></ion-icon>{{rute.destino}}
-            </div>
-          </ion-col>
-          <ion-col>
-            <div class = "vehiculo">
-              <b>{{rute.capacidad}}</b> asientos disponibles
-            </div>
-            <div>
-              <img *ngIf="rute.tipoVehiculo == 'Moto'" class= "vehiculo" src="assets/img/moto.png"/>
-              <img *ngIf="rute.tipoVehiculo == 'Carro'" class= "vehiculo" src="assets/img/carro.png"/>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card>
-  </ion-list>
+   <ion-grid>
+      <ion-row>
+        <ion-col *ngFor='let rute of rutes | async'>
+          <ion-card ion-select (click)="showrute( rute )">
+            <ion-grid  class = "grid_0">
+              <ion-row>
+                <ion-col class = "col_1">
+                  <div class="profile">
+                    <h2><b> {{rute.nombre}} </b></h2>
+                    <img class="profile" src={{rute.foto}} />
+                  </div>
+                </ion-col>
+                <ion-col class = "col_2">
+                  <div> <h2> {{rute.fecha}} - <b>{{rute.hora}}</b> </h2></div>
+                  <div>
+                    <ion-icon name="comparte_vehiculo-location_init"></ion-icon>{{rute.inicio}}
+                    <br>
+                    <br>
+                    <ion-icon name="comparte_vehiculo-location_finish"></ion-icon>{{rute.destino}}
+                  </div>
+                </ion-col>
+                <ion-col class = "col_3">
+                  <br>
+                  <div class = "vehiculo">
+                    <b>{{rute.capacidad}}</b> asientos disponibles
+                  </div>
+                  <div>
+                    <img *ngIf="rute.tipoVehiculo == 'Moto'" class= "vehiculo" src="assets/img/moto.png"/>
+                    <img *ngIf="rute.tipoVehiculo == 'Carro'" class= "vehiculo" src="assets/img/carro.png"/>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 </ion-content>

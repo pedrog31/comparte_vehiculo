@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebaseAuth from 'firebase/app';
 import firebase from 'firebase';
-import { AuthService, SocialUser } from "angular4-social-login";
-import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
 
 
 /**
@@ -48,7 +45,7 @@ export class LoginPage {
           window.localStorage.setItem('name', res.user.displayName);
           window.localStorage.setItem('email', res.user.email);
           window.localStorage.setItem('uid', res.user.uid);
-          window.localStorage.setItem('foto', res.user.uid);
+          window.localStorage.setItem('foto', res.user.photoURL);
           this.navController.push('HomePage');
         });
     } else {
@@ -56,20 +53,21 @@ export class LoginPage {
         'webClientId': '118760255717-b6f012ri2n40nnsffur0lggogglfan6t.apps.googleusercontent.com',
         'offline': false
       }).then( res => {
-          window.localStorage.setItem('name', res.displayName);
-          window.localStorage.setItem('email', res.email);
           const googleCredential = firebase.auth.GoogleAuthProvider
               .credential(res.idToken);
 
           firebase.auth().signInWithCredential(googleCredential)
               .then( response => {
+                window.localStorage.setItem('name', res.user.displayName);
+                window.localStorage.setItem('email', res.user.email);
+                window.localStorage.setItem('uid', res.user.uid);
+                window.localStorage.setItem('foto', res.user.photoURL);
                 this.navController.push('HomePage');
-                window.localStorage.setItem('uid', response.uid);})
-                window.localStorage.setItem('foto', res.user.uid);
           })
         .catch(err => {
           console.error(err);
-        })
+        });
+      });
     }
   }
 }

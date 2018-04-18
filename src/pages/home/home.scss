@@ -8,6 +8,7 @@ page-home {
     display:block;
     width: 100% !important;
   }
+
   div.vehiculo {
     text-align: center;
   }
@@ -38,11 +39,20 @@ page-home {
     flex:1 1 auto;
     padding:1rem
   }
+  ion-col{
+    max-width:670px !important
+  }
+  ion-col.col_1 {
+    min-width:150px !important
+  }
   ion-col.col_2 {
     min-width:250px !important
   }
+  ion-col.col_3 {
+    min-width:90px !important
+  }
   div.profile {
     text-align: center;
-    border-right: 1px solid black;
+    //border-right: 1px solid black;
   }
 }
