@@ -57,9 +57,21 @@ export class ModalInfoPage {
   }
 
   deleteRute() {
-    this.mydatabase.database.ref('/rutas/' + this.rute.key).remove().then((item) => {
-      alert("Ruta eliminada correctamente");
-      this.navController.pop();
+    this.mydatabase.database.ref('/rutas/' + this.rute.key).remove()
+    .then((item) => {
+      let newruteModal = this.alertCtrl.create({
+        title: 'Ruta eliminada',
+        message: "Esperamos puedas acompañarnos en otro momento",
+        buttons: [
+          {
+            text: 'Aceptar',
+            handler: data => {
+              this.navController.push('HomePage');
+            }
+          }
+        ]
+      });
+      newruteModal.present( newruteModal );
     })
   }
 

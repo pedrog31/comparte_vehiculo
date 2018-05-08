@@ -53,15 +53,15 @@ export class LoginPage {
         'webClientId': '118760255717-b6f012ri2n40nnsffur0lggogglfan6t.apps.googleusercontent.com',
         'offline': false
       }).then( res => {
+          window.localStorage.setItem('name', res.displayName);
+          window.localStorage.setItem('email', res.email);
+          window.localStorage.setItem('foto', res.imageUrl);
           const googleCredential = firebase.auth.GoogleAuthProvider
               .credential(res.idToken);
 
           firebase.auth().signInWithCredential(googleCredential)
               .then( response => {
-                window.localStorage.setItem('name', res.user.displayName);
-                window.localStorage.setItem('email', res.user.email);
-                window.localStorage.setItem('uid', res.user.uid);
-                window.localStorage.setItem('foto', res.user.photoURL);
+                window.localStorage.setItem('uid', response.uid);
                 this.navController.push('HomePage');
           })
         .catch(err => {

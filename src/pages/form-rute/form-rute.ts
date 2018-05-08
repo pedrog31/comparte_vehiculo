@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 /**
  * Generated class for the FormRutePage page.
@@ -48,7 +48,11 @@ export class FormRutePage {
 
     onSubmit(data: any): void {
         if(this.authForm.valid) {
-          this.rutesRef.push({
+            let hour = data.fecha.split('T')[1].split(':')[0];
+            let minute = data.fecha.split('T')[1].split(':')[1];
+            if(Number(hour) > 12) hour = (Number(hour) - 12) + ":" + minute + " pm";
+            else hour = hour + ":" + minute + " am";
+            this.rutesRef.push({
             uid: window.localStorage.getItem('uid'),
             nombre: window.localStorage.getItem('name'),
             email: window.localStorage.getItem('email'),
@@ -57,7 +61,7 @@ export class FormRutePage {
             tipoVehiculo: data.tipoVehiculo,
             capacidad: parseInt(data.capacidad),
             fecha: moment(data.fecha).locale('es').format('ddd DD[ de ]MMM'),
-            hora: moment(data.fecha).locale('es').format('hh:mm a'),
+            hora: hour,
             descripcion: data.descripcion,
             numeroPasajeros:0,
             foto: window.localStorage.getItem('foto')

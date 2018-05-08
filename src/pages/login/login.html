@@ -7,8 +7,12 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button block (click)="loginUser()" *ngIf="!userProfile" color="light">
+  <img class="banner" src="assets/img/DRAI_banner.jpg"/>
+
+  <button class = "login_button" ion-button block (click)="loginUser()" color="light">
     <ion-icon name="logo-google"></ion-icon>
     Iniciar sesion con Google
   </button>
+
+  <img class="example_banner" src="assets/img/example_banner.jpg"/>
 </ion-content>
