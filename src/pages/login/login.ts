@@ -21,7 +21,6 @@ export class LoginPage {
   userProfile: any = null;
   navController: NavController;
   platform: Platform;
-  angularFireAuth: AngularFireAuth;
   googlePlus: GooglePlus;
 
   constructor(public plt: Platform, public navCtrl: NavController, public navParams: NavParams, public afAuth: AngularFireAuth, public gp: GooglePlus) {

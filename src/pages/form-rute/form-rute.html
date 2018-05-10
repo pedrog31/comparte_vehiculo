@@ -18,15 +18,19 @@
 </ion-header>
 
 <ion-content padding>
-    <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm.value)">
-        <ion-item>
-            <ion-label floating>Desde</ion-label>
-            <ion-input formControlName="inicioRuta" type="text"></ion-input>
+    <div *ngIf="distance > 0" text-center class="message">
+      <h5>¿Sabias que con esta ruta de {{distance | number:'1.0-0'}}km estas reduciendo entre {{ginit | number:'1.0-0'}} y {{glast | number:'1.0-0'}} gramos de Co2 al medio ambiente equivalentes a la absorción de {{ntree | number:'1.0-0'}} arboles en un día?</h5>
+    </div>
+    <br>
+    <form [formGroup]="authForm" class="main-form" (ngSubmit)="onSubmit(authForm.value)">
+        <ion-item *ngIf="!distancia">
+          <ion-label floating>Desde</ion-label>
+          <ion-input #inicioRuta formControlName="inicioRuta"> </ion-input>
         </ion-item>
 
-        <ion-item>
-            <ion-label floating>Hasta</ion-label>
-            <ion-input formControlName="finalRuta" type="text"></ion-input>
+        <ion-item *ngIf="!distancia">
+          <ion-label floating>Hasta</ion-label>
+          <ion-input #finalRuta formControlName="finalRuta"> </ion-input>
         </ion-item>
 
         <ion-item>
