@@ -36,21 +36,43 @@ export class LoginPage {
       });
 
   }
+  ionViewDidLoad() {
+    /*this.googlePlus.trySilentLogin({
+      'webClientId': '118760255717-b6f012ri2n40nnsffur0lggogglfan6t.apps.googleusercontent.com',
+      'offline': true
+    }).then( res => {
+        window.localStorage.setItem('name', res.displayName);
+        window.localStorage.setItem('email', res.email);
+        window.localStorage.setItem('foto', res.imageUrl);
+        const googleCredential = firebase.auth.GoogleAuthProvider
+            .credential(res.idToken);
 
+        firebase.auth().signInWithCredential(googleCredential)
+            .then( response => {
+              window.localStorage.setItem('uid', response.uid);
+              this.navController.push('HomePage');
+        })
+      .catch(err => {
+        console.error(err);
+      });
+    });*/
+  }
   loginUser(): void {
-    if(this.platform.is('core') || this.platform.is('mobileweb')) {
-      this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-        .then(res => {
-          window.localStorage.setItem('name', res.user.displayName);
-          window.localStorage.setItem('email', res.user.email);
-          window.localStorage.setItem('uid', res.user.uid);
-          window.localStorage.setItem('foto', res.user.photoURL);
-          this.navController.push('HomePage');
-        });
-    } else {
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+          .then(res => {
+            window.localStorage.setItem('name', res.user.displayName);
+            window.localStorage.setItem('email', res.user.email);
+            window.localStorage.setItem('uid', res.user.uid);
+            window.localStorage.setItem('foto', res.user.photoURL);
+            this.navController.push('HomePage');
+          });
+  }
+
+/*
+  loginUser(): void {
       this.googlePlus.login({
         'webClientId': '118760255717-b6f012ri2n40nnsffur0lggogglfan6t.apps.googleusercontent.com',
-        'offline': false
+        'offline': true
       }).then( res => {
           window.localStorage.setItem('name', res.displayName);
           window.localStorage.setItem('email', res.email);
@@ -67,6 +89,5 @@ export class LoginPage {
           console.error(err);
         });
       });
-    }
-  }
+    }*/
 }

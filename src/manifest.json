@@ -1,13 +1,13 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
+  "name": "Comparte vehiculo",
+  "short_name": "Comparte",
   "start_url": "index.html",
-  "display": "standalone",
+  "display": "fullscreen",
   "icons": [{
     "src": "assets/imgs/logo.png",
     "sizes": "512x512",
     "type": "image/png"
   }],
-  "background_color": "#4e8ef7",
-  "theme_color": "#4e8ef7"
+  "background_color": "#215732",
+  "theme_color": "#215732"
 }

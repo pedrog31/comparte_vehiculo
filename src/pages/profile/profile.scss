@@ -1,0 +1,59 @@
+page-profile {
+
+  .heading{
+    -webkit-font-smoothing: antialiased;
+    display: block;
+    font-family: 'proxima_nova_rgregular', 'Gotham',  sans-serif;
+    font-size: 32px;
+    font-weight: normal;
+    height: 36px;
+    margin: 10px 0;
+    min-height: 0px;
+    position: static;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    text-shadow: 0 1px #B8AFA2;
+  }
+
+  .titlecol {
+    text-align: center;
+  }
+
+  ion-icon {
+    position:relative;
+    -webkit-box-flex:1;
+    -ms-flex:1 1 auto;
+    flex:1 1 auto;
+    padding:1rem
+  }
+
+  .subheading{
+  	font-size:16px;
+  	margin: 0px;
+  	text-align: center;
+  	font-family: 'proxima_nova_rgregular', 'Gotham', sans-serif;
+  	color: #333;
+  	font-weight: normal;
+  	-webkit-font-smoothing: antialiased;
+  }
+  .subheading2{
+  	font-size:16px;
+  	margin: 4px 0 25px;
+  	text-align: center;
+  	font-family: 'proxima_nova_rgregular', 'Gotham', sans-serif;
+  	color: #333;
+  	font-weight: normal;
+  	-webkit-font-smoothing: antialiased;
+  }
+
+  .avatar {
+    max-width:120px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+  	margin: 0 auto;
+    box-shadow: inset 0 0 0 2px #3f3f3f;
+  }
+}

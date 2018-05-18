@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { GooglePlus } from '@ionic-native/google-plus';
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -14,19 +15,28 @@ export class HomePage {
   navController: NavController;
   mydatabase: AngularFireDatabase;
   modalController: ModalController;
+  googlePlus: GooglePlus;
 
   constructor(
     public navCtrl: NavController,
     public navPrms: NavParams,
     public alertCtrl: AlertController,
     public database: AngularFireDatabase,
-    public mdController: ModalController
+    public mdController: ModalController,
+    public gp: GooglePlus
   ) {
+    this.googlePlus = gp;
     this.rutesRef = this.database.list('rutas');
     this.modalController = mdController;
     this.navController = navCtrl;
     this.mydatabase = this.database;
     this.navParams = navPrms;
+  }
+
+  logOut(){
+    this.googlePlus.logout().then( res => {
+        alert(res);
+        })
   }
 
   ionViewDidLoad() {
@@ -37,6 +47,10 @@ export class HomePage {
                   .map(changes => {
                     return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
                   });
+  }
+
+  showProfile() {
+    this.navController.push('ProfilePage');
   }
 
   createrute(){

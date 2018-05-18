@@ -68,6 +68,7 @@
             <button ion-button *ngIf="owner && rute.numeroPasajeros === 0" color="danger" (click)="deleteRute()">Eliminar ruta</button>
             <button ion-button *ngIf="owner && rute.numeroPasajeros > 0" color="blue" (click)="showPassengers()">Pasajeros inscritos</button>
             <button ion-button *ngIf="!owner && !subscribed && rute.capacidad != 0" color="blue" (click)="addNewPassengerInfo()">Tomar esta ruta</button>
+            <button ion-button *ngIf="!owner && subscribed" color="green" (click)="initChat(null)">Contacto</button>
           </ion-buttons>
         </ion-toolbar>
       </ion-footer>
@@ -82,6 +83,9 @@
         <ion-col>
           <h3>{{ pasajero.nombre}}</h3>
           <p>{{ pasajero.correo}}</p>
+        </ion-col>
+        <ion-col>
+          <button ion-button color="green" (click)="initChat(pasajero)">Contacto</button>
         </ion-col>
       </ion-row>
     </ion-grid>

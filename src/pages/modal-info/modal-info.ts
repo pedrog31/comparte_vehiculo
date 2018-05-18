@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, ModalController } from 'ionic-angular';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { ChatProvider } from '../../providers/chat/chat';
 /**
  * Generated class for the ModalInfoPage page.
  *
@@ -23,13 +24,20 @@ export class ModalInfoPage {
   mydatabase: AngularFireDatabase;
   pasajeros: Observable<any[]>;
   pasajerosRef: AngularFireList<any>;
+  modalController: ModalController;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public database: AngularFireDatabase) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public alertCtrl: AlertController,
+              public database: AngularFireDatabase,
+              public chatservice: ChatProvider,
+              public mdController: ModalController) {
+    this.modalController = mdController;
     this.navController = navCtrl;
     this.rute = navParams.get('rute');
     this.owner = this.rute.uid == window.localStorage.getItem('uid');
     if (this.rute.numeroPasajeros > 0)
-      this.subscribed = JSON.stringify(this.rute.pasajeros).indexOf(window.localStorage.getItem('uid')) > -1;
+      this.subscribed = JSON.stringify(this.rute).indexOf(window.localStorage.getItem('uid')) > -1;
     else
       this.subscribed = false;
     this.primary = true;
@@ -45,7 +53,7 @@ export class ModalInfoPage {
 
   showPassengers() {
     this.primary = false;
-    this.pasajerosRef = this.database.list('/rutas/' + this.rute.key + '/pasajeros');
+    this.pasajerosRef = this.database.list('/rutas/' + this.rute.key + '/Pasajeros/');
     this.pasajeros = this.pasajerosRef.snapshotChanges()
                   .map(changes => {
                     return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
@@ -54,6 +62,11 @@ export class ModalInfoPage {
 
   addNewPassengerInfo() {
     this.primary = false;
+  }
+
+  initChat(pasajero){
+    this.chatservice.initializebuddy(this.rute, pasajero);
+    this.modalController.create('ChatPage').present();
   }
 
   deleteRute() {
@@ -78,7 +91,7 @@ export class ModalInfoPage {
   addNewPassenger() {
     let aux: number = this.rute.capacidad - 1;
     let aux2: number = this.rute.numeroPasajeros + 1;
-    this.mydatabase.database.ref('/rutas/' + this.rute.key + '/pasajeros/' + window.localStorage.getItem('uid')).update({
+    this.mydatabase.database.ref('/rutas/' + this.rute.key + '/Pasajeros/' + window.localStorage.getItem('uid')).update({
       nombre: window.localStorage.getItem('name'),
       correo: window.localStorage.getItem('email'),
       foto: window.localStorage.getItem('foto')
