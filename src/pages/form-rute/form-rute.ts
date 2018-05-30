@@ -31,32 +31,35 @@ export class FormRutePage {
     capacidadValue: number;
     inicioLatLng: any;
     finalLatLng: any;
-    inicioName:String;
-    finalName:String;
+    inicioName:string;
+    finalName:string;
     distance: number;
     ginit: number;
     glast: number;
     ntree: number;
+    mName: string;
+    minDate: number;
 
-    constructor(public nav: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public database: AngularFireDatabase, public alertCtrl: AlertController,) {
+    constructor(public nav: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public database: AngularFireDatabase, public alertCtrl: AlertController) {
+        this.minDate = moment().format('YYYY-MM-DD');
         this.navController = nav;
         this.mydatabase = this.database;
         this.rutesRef = this.database.list('rutas');
-
+        this.mName = window.localStorage.getItem('name');
         this.authForm = formBuilder.group({
             inicioRuta: ['', Validators.compose([Validators.required])],
             finalRuta: ['', Validators.compose([Validators.required])],
             tipoVehiculo: ['', Validators.compose([Validators.required])],
-            capacidad: ['', Validators.compose([Validators.required])],
+            capacidad: ['', Validators.compose([Validators.required, Validators.min(1)])],
             fecha: ['', Validators.compose([Validators.required])],
             descripcion: ['']
         });
     }
 
     ionViewDidLoad() {
-      if (window.localStorage.getItem('uid') == null) {
-        this.navController.push('LoginPage');
-      }
+        if (window.localStorage.getItem('uid') == null) {
+            this.navController.push('LoginPage');
+        }
       if (!!google) {
           this.initAutocomplete();
         } else {
@@ -126,41 +129,62 @@ export class FormRutePage {
 
     onSubmit(data: any): void {
         if(this.authForm.valid) {
-            let hour = data.fecha.split('T')[1].split(':')[0];
-            let minute = data.fecha.split('T')[1].split(':')[1];
-            if(Number(hour) > 12) hour = (Number(hour) - 12) + ":" + minute + " pm";
-            else hour = hour + ":" + minute + " am";
-            this.rutesRef.push({
-            uid: window.localStorage.getItem('uid'),
-            nombre: window.localStorage.getItem('name'),
-            email: window.localStorage.getItem('email'),
-            inicio: this.inicioName,
-            inicioLatLng: this.inicioLatLng,
-            finalLatLng: this.finalLatLng,
-            destino: this.finalName,
-            tipoVehiculo: data.tipoVehiculo,
-            capacidad: parseInt(data.capacidad),
-            fecha: moment(data.fecha).locale('es').format('ddd DD[ de ]MMM'),
-            hora: hour,
-            descripcion: data.descripcion,
-            numeroPasajeros:0,
-            foto: window.localStorage.getItem('foto'),
-            kilometros: this.distance
-          }).then((item) => {
-            let newruteModal = this.alertCtrl.create({
-              title: 'Nueva ruta',
-              message: "Los datos de la ruta fueron guardados correctamente.",
-              buttons: [
-                {
-                  text: 'Aceptar',
-                  handler: data => {
-                    this.nav.push('HomePage');
-                  }
-                }
-              ]
-            });
-            newruteModal.present( newruteModal );
-          })
+            let completeDate = data.fecha.split('T');
+            let date = completeDate[0].split('-');
+            let hour = completeDate[1].split(':');
+            let momentTimestamp = moment(date[0] + "-" + date[1] + "-" + date[2] + " " + hour[0] + ":" + hour[1],"YYYY-MM-DD HH:mm").valueOf();
+            let newruteModal;
+            console.log(momentTimestamp);
+            console.log(moment().valueOf());
+            if (momentTimestamp > moment().valueOf()) {
+                this.rutesRef.push({
+                    uid: window.localStorage.getItem('uid'),
+                    nombre: window.localStorage.getItem('name'),
+                    email: window.localStorage.getItem('email'),
+                    inicio: this.inicioName,
+                    inicioLatLng: this.inicioLatLng,
+                    finalLatLng: this.finalLatLng,
+                    destino: this.finalName,
+                    tipoVehiculo: data.tipoVehiculo,
+                    capacidad: parseInt(data.capacidad),
+                    timestamp: momentTimestamp,
+                    descripcion: data.descripcion,
+                    numeroPasajeros:0,
+                    foto: window.localStorage.getItem('foto'),
+                    kilometros: this.distance
+                }).then((item) => {
+                    newruteModal = this.alertCtrl.create({
+                        title: 'Nueva ruta',
+                        message: "Los datos de la ruta fueron guardados correctamente.",
+                        buttons: [
+                            {
+                                text: 'Aceptar',
+                                handler: data => {
+                                    this.nav.push('HomePage');
+                                }
+                            }
+                        ]
+                    });
+                    newruteModal.present( newruteModal );
+                })
+            }else {
+                newruteModal = this.alertCtrl.create({
+                    title: 'Error',
+                    message: "La fecha de viaje no puede ser anterior a la fecha actual.",
+                    buttons: [
+                        {
+                            text: 'Aceptar'
+                        },
+                        {
+                            text: 'Cancelar',
+                            handler: data => {
+                                this.nav.push('HomePage');
+                            }
+                        }
+                    ]
+                });
+                newruteModal.present( newruteModal );
+            }
         }
       }
 

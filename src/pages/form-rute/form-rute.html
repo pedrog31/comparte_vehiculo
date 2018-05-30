@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Nueva ruta</ion-title>
+    <ion-title>Nueva ruta de {{mName}}</ion-title>
     <ion-buttons start>
       <button ion-button (click)="closeModal()">
         <ion-icon name="close"></ion-icon>
@@ -19,7 +19,7 @@
 
 <ion-content padding>
     <div *ngIf="distance > 0" text-center class="message">
-      <h5>¿Sabias que con esta ruta de {{distance | number:'1.0-0'}}km estas reduciendo entre {{ginit | number:'1.0-0'}} y {{glast | number:'1.0-0'}} gramos de Co2 al medio ambiente equivalentes a la absorción de {{ntree | number:'1.0-0'}} arboles en un día?</h5>
+      <h5>¿Sabías qué con esta ruta de {{distance | number:'1.0-0'}}km estás reduciendo entre {{ginit | number:'1.0-0'}} y {{glast | number:'1.0-0'}} gramos de Co2 al medio ambiente equivalentes a la absorción de {{ntree | number:'1.0-0'}} árboles en un día?</h5>
     </div>
     <br>
     <form [formGroup]="authForm" class="main-form" (ngSubmit)="onSubmit(authForm.value)">
@@ -34,7 +34,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label floating>Tipo vehiculo</ion-label>
+          <ion-label floating>Tipo vehículo</ion-label>
           <ion-select formControlName="tipoVehiculo"  (ionChange)="onSelectChange($event)" interface="popover">
             <ion-option value="Carro">Carro</ion-option>
             <ion-option value="Moto">Moto</ion-option>
@@ -42,17 +42,17 @@
         </ion-item>
 
         <ion-item>
-            <ion-label floating>capacidad</ion-label>
-            <ion-input formControlName="capacidad" type="number" [(ngModel)]="capacidadValue"></ion-input>
+            <ion-label floating>Capacidad</ion-label>
+            <ion-input formControlName="capacidad" type="number" [min]="1" [(ngModel)]="capacidadValue"></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label floating>Fecha</ion-label>
-            <ion-datetime formControlName="fecha" pickerFormat= "DD MMM YY, h:mm a" displayFormat="DD de MMMM de YYYY, h:mm A" doneText="Listo" cancelText="Cancelar" yearValues= "2018" minuteValues="0,15,30,45" monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic" monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"></ion-datetime>
+            <ion-datetime formControlName="fecha" pickerFormat= "DD MMM YY, h:mm a" [min]="minDate" displayFormat="DD de MMMM de YYYY, h:mm A" doneText="Listo" cancelText="Cancelar" yearValues= "2018" minuteValues="0,15,30,45" monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic" monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"></ion-datetime>
         </ion-item>
 
         <ion-item>
-            <ion-label floating>Descripcion</ion-label>
+            <ion-label floating>Descripción</ion-label>
             <ion-input formControlName="descripcion" type="text"></ion-input>
         </ion-item>
 

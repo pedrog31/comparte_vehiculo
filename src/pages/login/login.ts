@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
@@ -23,10 +23,40 @@ export class LoginPage {
   platform: Platform;
   googlePlus: GooglePlus;
 
-  constructor(public plt: Platform, public navCtrl: NavController, public navParams: NavParams, public afAuth: AngularFireAuth, public gp: GooglePlus) {
+  constructor(public toastCtrl: ToastController,public alertCtrl: AlertController, public plt: Platform, public navCtrl: NavController, public navParams: NavParams, public afAuth: AngularFireAuth, public gp: GooglePlus) {
       this.platform = plt;
       this.navController = navCtrl;
       this.googlePlus = gp;
+      this.googlePlus.trySilentLogin({
+          'webClientId': '118760255717-b6f012ri2n40nnsffur0lggogglfan6t.apps.googleusercontent.com',
+          'offline': true,
+      }).then( res => {
+          window.localStorage.setItem('name', res.givenName);
+          window.localStorage.setItem('email', res.email);
+          window.localStorage.setItem('foto', res.imageUrl);
+          const googleCredential = firebase.auth.GoogleAuthProvider
+              .credential(res.idToken);
+
+          firebase.auth().signInWithCredential(googleCredential)
+              .then( response => {
+                  window.localStorage.setItem('uid', response.uid);
+                  this.navController.push('HomePage');
+                  let toast = this.toastCtrl.create({
+                      message: 'Bienvenido de nuevo, ' + res.givenName,
+                      duration: 3000,
+                      position: 'top'
+                  });
+
+                  toast.onDidDismiss(() => {
+                      console.log('Dismissed toast');
+                  });
+
+                  toast.present();
+              })
+              .catch(err => {
+                  alert(JSON.stringify(err));
+              });
+      });
       firebase.auth().onAuthStateChanged( user => {
         if (user){
           this.userProfile = user;
@@ -37,26 +67,8 @@ export class LoginPage {
 
   }
   ionViewDidLoad() {
-    /*this.googlePlus.trySilentLogin({
-      'webClientId': '118760255717-b6f012ri2n40nnsffur0lggogglfan6t.apps.googleusercontent.com',
-      'offline': true
-    }).then( res => {
-        window.localStorage.setItem('name', res.displayName);
-        window.localStorage.setItem('email', res.email);
-        window.localStorage.setItem('foto', res.imageUrl);
-        const googleCredential = firebase.auth.GoogleAuthProvider
-            .credential(res.idToken);
-
-        firebase.auth().signInWithCredential(googleCredential)
-            .then( response => {
-              window.localStorage.setItem('uid', response.uid);
-              this.navController.push('HomePage');
-        })
-      .catch(err => {
-        console.error(err);
-      });
-    });*/
   }
+  /*
   loginUser(): void {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
           .then(res => {
@@ -66,28 +78,52 @@ export class LoginPage {
             window.localStorage.setItem('foto', res.user.photoURL);
             this.navController.push('HomePage');
           });
-  }
+  }*/
 
-/*
+
   loginUser(): void {
       this.googlePlus.login({
-        'webClientId': '118760255717-b6f012ri2n40nnsffur0lggogglfan6t.apps.googleusercontent.com',
-        'offline': true
+          'webClientId': '118760255717-b6f012ri2n40nnsffur0lggogglfan6t.apps.googleusercontent.com',
+          'offline': true
       }).then( res => {
-          window.localStorage.setItem('name', res.displayName);
-          window.localStorage.setItem('email', res.email);
-          window.localStorage.setItem('foto', res.imageUrl);
-          const googleCredential = firebase.auth.GoogleAuthProvider
-              .credential(res.idToken);
+          if (res.email.indexOf("@udea.edu.co") >= 0) {
+              window.localStorage.setItem('name', res.givenName);
+              window.localStorage.setItem('email', res.email);
+              window.localStorage.setItem('foto', res.imageUrl);
+              const googleCredential = firebase.auth.GoogleAuthProvider
+                  .credential(res.idToken);
 
-          firebase.auth().signInWithCredential(googleCredential)
-              .then( response => {
-                window.localStorage.setItem('uid', response.uid);
-                this.navController.push('HomePage');
-          })
-        .catch(err => {
-          console.error(err);
-        });
+              firebase.auth().signInWithCredential(googleCredential)
+                  .then( response => {
+                      window.localStorage.setItem('uid', response.uid);
+                      this.navController.push('HomePage');
+                  })
+                  .catch(err => {
+                      console.error(err);
+                  });
+          }else {
+              firebase.auth().signOut().then(msg=> {
+                  window.localStorage.removeItem('name');
+                  window.localStorage.removeItem('email');
+                  window.localStorage.removeItem('foto');
+                  window.localStorage.removeItem('uid');
+                  this.googlePlus.logout().then(msg => {
+                      this.navCtrl.push("LoginPage");
+                  })
+              }, function(error) {
+                  console.log(error.message);
+              });
+              let errorAlert = this.alertCtrl.create({
+                  title: 'Error',
+                  message: "Debes iniciar sesión con una cuenta institucional de la Universidad de Antioquia",
+                  buttons: [
+                      {
+                          text: 'Aceptar'
+                      }
+                  ]
+              });
+              errorAlert.present( errorAlert );
+          }
       });
-    }*/
+    }
 }

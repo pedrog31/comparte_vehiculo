@@ -3,6 +3,7 @@ import { IonicPage, NavController, AlertController, NavParams, ModalController }
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ChatProvider } from '../../providers/chat/chat';
+import { GooglePlus } from '@ionic-native/google-plus';
 /**
  * Generated class for the ModalInfoPage page.
  *
@@ -25,13 +26,18 @@ export class ModalInfoPage {
   pasajeros: Observable<any[]>;
   pasajerosRef: AngularFireList<any>;
   modalController: ModalController;
+  googlePlus: GooglePlus;
+  mName: String;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public alertCtrl: AlertController,
               public database: AngularFireDatabase,
               public chatservice: ChatProvider,
-              public mdController: ModalController) {
+              public mdController: ModalController,
+              public gp: GooglePlus) {
+    this.mName = window.localStorage.getItem('name');
+    this.googlePlus = gp;
     this.modalController = mdController;
     this.navController = navCtrl;
     this.rute = navParams.get('rute');
@@ -44,7 +50,10 @@ export class ModalInfoPage {
     this.mydatabase = this.database;
   }
 
-  ionViewDidLoad() {
+    ionViewDidLoad() {
+        if (window.localStorage.getItem('uid') == null) {
+            this.navController.push('LoginPage');
+        }
   }
 
   closeModal () {
@@ -61,7 +70,7 @@ export class ModalInfoPage {
   }
 
   addNewPassengerInfo() {
-    this.primary = false;
+      this.primary = false;
   }
 
   initChat(pasajero){

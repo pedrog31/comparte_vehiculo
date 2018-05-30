@@ -39,6 +39,12 @@ export class ChatPage {
     })
   }
 
+    ionViewDidLoad() {
+        if (window.localStorage.getItem('uid') == null) {
+            this.navController.push('LoginPage');
+        }
+    }
+
   addmessage() {
     this.chatservice.addnewmessage(this.newmessage).then(() => {
       this.content.scrollToBottom();

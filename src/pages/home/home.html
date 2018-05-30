@@ -1,18 +1,15 @@
 <ion-header>
   <ion-navbar hideBackButton color="primary">
     <ion-title>
-      Comparte tu vehiculo
+      Comparte tu vehículo: {{mUserEmail}}
     </ion-title>
     <ion-buttons start>
       <ion-buttons right>
-        <!--<button ion-button (click)="showProfile()">
-          <ion-icon name="person"></ion-icon> Perfil
-        </button>!-->
+        <button *ngIf='mUserEmail' ion-button (click)="sigOut()">
+          <ion-icon name="log-out"></ion-icon> Cerrar sesión
+        </button>
         <button ion-button (click)="createrute()">
           <ion-icon name="add"></ion-icon> Nueva ruta
-        </button>
-        <button ion-button (click)="logOut()">
-          <ion-icon name="log-out"></ion-icon> Cerrar sesion
         </button>
     </ion-buttons>
     </ion-buttons>
@@ -34,7 +31,7 @@
                   </div>
                 </ion-col>
                 <ion-col class = "col_2">
-                  <div> <h2> {{rute.fecha}} - <b>{{rute.hora}}</b> </h2></div>
+                  <div> <h2> {{rute.timestamp | date: 'dd/MM/yyyy'}} - <b>{{rute.timestamp | date: 'h:mm a'}}</b> </h2></div>
                   <div>
                     <ion-icon name="comparte_vehiculo-location_init"></ion-icon>{{rute.inicio}}
                     <br>

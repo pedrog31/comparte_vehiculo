@@ -11,4 +11,13 @@ page-modal-info {
     margin-left: 10px;
     margin-right: 10px
   }
+
+  div.confirmacion {
+    height: 100%;
+  }
+
+  modal-wrapper {
+    position: absolute;
+    min-height: 550px !important;
+  }
 }

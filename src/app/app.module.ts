@@ -11,6 +11,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
 
 import firebase from 'firebase';
 import { ChatProvider } from '../providers/chat/chat';
+import { LoginProvider } from '../providers/login/login';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyCnaI6yDjH0lbS5ZXqKDz4d4D1bIf0GRdk",
@@ -42,7 +43,8 @@ firebase.initializeApp(firebaseConfig);
     AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GooglePlus,
-    ChatProvider
+    ChatProvider,
+    LoginProvider
   ]
 })
 export class AppModule {}

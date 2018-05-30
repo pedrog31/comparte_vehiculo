@@ -47,7 +47,7 @@ export class ChatProvider {
 
   getbuddymessages() {
     let temp;
-    const uid;
+    var uid;
     if (this.pasajero!= null)
       uid = this.pasajero.key;
     else
