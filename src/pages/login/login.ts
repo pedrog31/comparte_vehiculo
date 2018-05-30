@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
-import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
 
 
@@ -23,7 +22,12 @@ export class LoginPage {
   platform: Platform;
   googlePlus: GooglePlus;
 
-  constructor(public toastCtrl: ToastController,public alertCtrl: AlertController, public plt: Platform, public navCtrl: NavController, public navParams: NavParams, public afAuth: AngularFireAuth, public gp: GooglePlus) {
+  constructor(public toastCtrl: ToastController,
+              public alertCtrl: AlertController,
+              public plt: Platform,
+              public navCtrl: NavController,
+              public navParams: NavParams,
+              public gp: GooglePlus) {
       this.platform = plt;
       this.navController = navCtrl;
       this.googlePlus = gp;
@@ -87,19 +91,48 @@ export class LoginPage {
           'offline': true
       }).then( res => {
           if (res.email.indexOf("@udea.edu.co") >= 0) {
-              window.localStorage.setItem('name', res.givenName);
-              window.localStorage.setItem('email', res.email);
-              window.localStorage.setItem('foto', res.imageUrl);
-              const googleCredential = firebase.auth.GoogleAuthProvider
-                  .credential(res.idToken);
-
-              firebase.auth().signInWithCredential(googleCredential)
+              firebase.auth().signInWithEmailAndPassword(res.email, "123456")
                   .then( response => {
-                      window.localStorage.setItem('uid', response.uid);
-                      this.navController.push('HomePage');
+                      window.localStorage.setItem('name', res.givenName);
+                      window.localStorage.setItem('email', res.email);
+                      window.localStorage.setItem('foto', res.imageUrl);
+                      const googleCredential = firebase.auth.GoogleAuthProvider
+                          .credential(res.idToken);
+
+                      firebase.auth().currentUser.linkWithCredential(googleCredential)
+                          .then( response => {
+                              window.localStorage.setItem('uid', response.uid);
+                              this.navController.push('HomePage');
+                          })
+                          .catch(err => {
+                              if (err.code === "auth/provider-already-linked") {
+                                  window.localStorage.setItem('uid', response.uid);
+                                  this.navController.push('HomePage');
+                              }
+                          });
                   })
                   .catch(err => {
-                      console.error(err);
+                      firebase.auth().signOut().then(msg=> {
+                          window.localStorage.removeItem('name');
+                          window.localStorage.removeItem('email');
+                          window.localStorage.removeItem('foto');
+                          window.localStorage.removeItem('uid');
+                          this.googlePlus.logout().then(msg => {
+                              this.navCtrl.push("LoginPage");
+                          })
+                      }, function(error) {
+                          console.log(error.message);
+                      });
+                      let errorAlert = this.alertCtrl.create({
+                          title: 'Error',
+                          message: "No tienes acceso a esta aplicación, si crees que es un error comunicate al telefono 2191919.",
+                          buttons: [
+                              {
+                                  text: 'Aceptar'
+                              }
+                          ]
+                      });
+                      errorAlert.present( errorAlert );
                   });
           }else {
               firebase.auth().signOut().then(msg=> {
